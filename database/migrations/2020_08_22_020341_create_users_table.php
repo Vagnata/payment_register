@@ -11,11 +11,11 @@ class CreateUsersTable extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('email')->unique();
-            $table->string('cpf')->unique()->nullable();
-            $table->string('cnpj')->unique()->nullable();
+            $table->string('email', '100')->unique();
+            $table->string('cpf', '11')->unique()->nullable();
+            $table->string('cnpj', '14')->unique()->nullable();
             $table->string('password');
-            $table->integer('user_type_id');
+            $table->unsignedBigInteger('user_type_id');
             $table->timestamps();
             $table->foreign('user_type_id')->references('id')->on('user_types');
         });

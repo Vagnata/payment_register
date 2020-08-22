@@ -10,10 +10,10 @@ class CreateTransactionsTable extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
-            $table->integer('payer_wallet_id');
-            $table->integer('payee_wallet_id');
+            $table->unsignedBigInteger('payer_wallet_id');
+            $table->unsignedBigInteger('payee_wallet_id');
             $table->decimal('ammount');
-            $table->integer('transaction_status_id');
+            $table->unsignedBigInteger('transaction_status_id');
             $table->timestamps();
         });
     }

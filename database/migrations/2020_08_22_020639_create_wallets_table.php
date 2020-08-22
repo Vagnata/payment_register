@@ -10,7 +10,7 @@ class CreateWalletsTable extends Migration
     {
         Schema::create('wallets', function (Blueprint $table) {
             $table->id();
-            $table->integer('user_id');
+            $table->unsignedBigInteger('user_id');
             $table->decimal('ammount');
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users');
