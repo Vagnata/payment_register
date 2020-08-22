@@ -12,6 +12,5 @@ Route::group(['namespace' => 'V1', 'prefix' => 'v1'], function()
     Route::prefix('user')->group(function () {
         Route::post('/', 'UserController@post');
     });
-
 });
 
