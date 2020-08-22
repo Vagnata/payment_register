@@ -23,18 +23,6 @@ abstract class TestCase extends BaseTestCase
         $this->seed();
     }
 
-    public function createApplication()
-    {
-        putenv('DB_DATABASE=payment_register_test');
-
-        $app = require __DIR__ . '/../bootstrap/app.php';
-
-        $app->make('Illuminate\Contracts\Console\Kernel')->bootstrap();
-
-        return $app;
-    }
-
-
     public function tearDown(): void
     {
         Artisan::call('migrate:reset');
