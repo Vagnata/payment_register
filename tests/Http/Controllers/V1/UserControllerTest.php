@@ -2,7 +2,7 @@
 
 namespace Tests\Http\Controllers\V1;
 
-use App\Domain\Enum\UserTypesEnum;
+use App\Domain\Enuns\UserTypesEnum;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
 
