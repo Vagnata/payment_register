@@ -6,12 +6,14 @@ use Faker\Generator;
 use Faker\Provider\pt_BR\Company;
 use Faker\Provider\pt_BR\Internet;
 use Faker\Provider\pt_BR\Person;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use Illuminate\Support\Facades\Artisan;
 
 abstract class TestCase extends BaseTestCase
 {
     use CreatesApplication;
+    use DatabaseMigrations;
 
     /** @var Generator */
     protected $faker;
