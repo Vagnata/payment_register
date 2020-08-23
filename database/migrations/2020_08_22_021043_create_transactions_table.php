@@ -12,7 +12,7 @@ class CreateTransactionsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('payer_wallet_id');
             $table->unsignedBigInteger('payee_wallet_id');
-            $table->decimal('ammount');
+            $table->decimal('amount');
             $table->unsignedBigInteger('transaction_status_id');
             $table->timestamps();
         });
