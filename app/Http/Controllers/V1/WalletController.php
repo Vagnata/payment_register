@@ -26,7 +26,6 @@ class WalletController extends Controller
         try {
             $wallet = $this->walletService->addCreditToWallet($request->all());
         } catch (FailCreditUpdateException $exception) {
-            dd($exception->getMessage());
             return Response::json(['message' => $exception->getMessage()], HttpResponse::HTTP_INTERNAL_SERVER_ERROR);
         } catch (WalletNotFoundException | MaxWalletAmountExceededException  $exception) {
             return Response::json(['message' => $exception->getMessage()], HttpResponse::HTTP_UNPROCESSABLE_ENTITY);

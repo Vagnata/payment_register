@@ -35,7 +35,6 @@ class WalletControllerTest extends TestCase
             'amount'  => $depositAmount,
         ];
         $fixture->amount = $fixture->amount + $depositAmount;
-
         $this->walletServiceMock->shouldReceive('addCreditToWallet')->with($json)->andReturn($fixture);
 
         $res = $this->call('PUT', '/api/v1/wallet', $json);
