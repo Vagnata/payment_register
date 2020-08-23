@@ -63,7 +63,7 @@ class UserRepositoryTest extends TestCase
     {
        factory(User::class)->create();
 
-        $user = $this->userRepository->findById($this->faker->randomDigit);
+        $user = $this->userRepository->findById($this->faker->numerify('#####'));
 
         $this->assertNull($user);
     }

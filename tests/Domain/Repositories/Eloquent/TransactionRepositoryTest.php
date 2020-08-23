@@ -91,4 +91,25 @@ class TransactionRepositoryTest extends TestCase
         $this->assertInstanceOf(Collection::class, $collection);
         $this->assertCount(0, $collection);
     }
+
+    /**
+     * @test
+     */
+    public function shouldInsertOneTransaction()
+    {
+        $payerWallet = factory(Wallet::class)->create();
+        $payeeWallet = factory(Wallet::class)->create();
+        $data        = [
+            'payer_wallet_id'      => $payerWallet->id,
+            'payee_wallet_id'      => $payeeWallet->id,
+            'amount'               => $this->faker->randomFloat(2, 2, 4),
+            'transaction_status_id' => $this->faker->randomElement(TransactionStatusEnum::toArray())
+        ];
+
+        $transaction = $this->transactionRepository->save($data);
+
+        $this->assertInstanceOf(Transaction::class, $transaction);
+        $this->assertEquals($payerWallet->id, $transaction->payer_wallet_id);
+        $this->assertEquals($payeeWallet->id, $transaction->payee_wallet_id);
+    }
 }
