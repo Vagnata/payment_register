@@ -12,5 +12,9 @@ Route::group(['namespace' => 'V1', 'prefix' => 'v1'], function()
     Route::prefix('user')->group(function () {
         Route::post('/', 'UserController@post');
     });
+
+    Route::prefix('wallet')->group(function () {
+        Route::put('/', 'WalletController@put');
+    });
 });
 
