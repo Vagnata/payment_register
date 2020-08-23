@@ -27,7 +27,7 @@ class UserService
                 'email'        => $data->get('email'),
                 'cpf'          => Utils::unmask($data->get('cpf')),
                 'cnpj'         => Utils::unmask($data->get('cnpj')),
-                'password'     => $data->get('password'),
+                'password'     => sha1($data->get('password')),
                 'user_type_id' => $data->get('user_type_id'),
             ];
 
