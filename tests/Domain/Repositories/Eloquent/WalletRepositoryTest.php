@@ -39,4 +39,44 @@ class WalletRepositoryTest extends TestCase
         $this->assertInstanceOf(Wallet::class, $user);
         $this->assertCount(1, Wallet::all());
     }
+
+    /**
+     * @test
+     */
+    public function shouldFindOneWalletByUserId()
+    {
+        $fixture = factory(Wallet::class)->create();
+
+        $wallet = $this->walletRepository->findByUserId($fixture->user_id);
+
+        $this->assertInstanceOf(Wallet::class, $wallet);
+        $this->assertEquals($fixture->id, $wallet->id);
+    }
+
+    /**
+     * @test
+     */
+    public function shouldNotFindWalletThenReturnsNull()
+    {
+        factory(Wallet::class)->create();
+
+        $wallet = $this->walletRepository->findByUserId($this->faker->numerify('####'));
+
+        $this->assertNull($wallet);
+    }
+
+    /**
+     * @test
+     */
+    public function shouldUpdateWalletAmount()
+    {
+        $startAmount   = $this->faker->randomFloat(2, 3, 4);
+        $depositAmount = $this->faker->randomFloat(2, 3, 4);
+        $newAmount     = $startAmount + $depositAmount;
+        $fixture       = factory(Wallet::class)->create(['amount' => $startAmount]);
+
+        $wallet = $this->walletRepository->update($fixture, ['amount' => $newAmount]);
+
+        $this->assertEquals($newAmount, $wallet->amount);
+    }
 }

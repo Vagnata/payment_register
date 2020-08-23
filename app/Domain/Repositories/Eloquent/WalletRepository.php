@@ -7,12 +7,27 @@ use App\Domain\Repositories\Contracts\WalletRepositoryInterface;
 
 class WalletRepository implements WalletRepositoryInterface
 {
-    public function save(array $userData): Wallet
+    public function save(array $walletData): Wallet
     {
-        $user = new Wallet();
-        $user->fill($userData);
-        $user->save();
+        $wallet = new Wallet();
+        $wallet->fill($walletData);
+        $wallet->save();
 
-        return $user;
+        return $wallet;
+    }
+
+    public function findByUserId(int $userId): ?Wallet
+    {
+        $wallet = new Wallet();
+
+        return $wallet->where('user_id', $userId)
+            ->first();
+    }
+
+    public function update(Wallet $wallet, array $attributes): Wallet
+    {
+        $wallet->update($attributes);
+
+        return $wallet;
     }
 }
