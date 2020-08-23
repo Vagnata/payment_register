@@ -8,5 +8,10 @@ return [
         'insert' => [
             'successfully' => 'Usuário inserido com sucesso'
         ]
+    ],
+    'wallet' => [
+        'deposit' => [
+            'successfully' => 'Depósito realizado com sucesso.'
+        ]
     ]
 ];

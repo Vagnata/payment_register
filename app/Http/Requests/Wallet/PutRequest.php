@@ -1,13 +1,10 @@
 <?php
 
-namespace App\Http\Requests\User;
+namespace App\Http\Requests\Wallet;
 
-use App\Domain\Enuns\UserTypesEnum;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
-use Illuminate\Validation\Rule;
-use JansenFelipe\Utils\Utils;
 use Symfony\Component\HttpFoundation\Response;
 
 class PutRequest extends FormRequest
@@ -16,7 +13,7 @@ class PutRequest extends FormRequest
     {
         return [
             'user_id' => ['required', 'integer', 'exists:users,id'],
-            'amount'  => ['required', 'float', 'max:200000']
+            'amount'  => ['required', 'numeric', 'max:200000.00', 'regex:/^-?[0-9]+(?:\.[0-9]{1,2})?$/']
         ];
     }
 
