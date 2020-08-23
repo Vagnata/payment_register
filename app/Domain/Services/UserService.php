@@ -33,7 +33,6 @@ class UserService
 
             return $this->userRepository->save($userData);
         } catch (\Exception $exception) {
-            dd($exception->getMessage());
             throw new FailUserInsertionException();
         }
     }

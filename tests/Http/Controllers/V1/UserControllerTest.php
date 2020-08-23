@@ -32,12 +32,12 @@ class UserControllerTest extends TestCase
         $json    = [
             'name'         => $this->faker->name,
             'cpf'          => $this->faker->cpf(false),
-            'email'        => $this->faker->email,
+            'email'        => $this->faker->email . 'xD',
             'cnpj'         => null,
             'password'     => $this->faker->password,
             'user_type_id' => UserTypesEnum::COMMON
         ];
-        $fixture = factory(User::class)->create($json);
+        $fixture = factory(User::class)->make($json);
         $this->userServiceMock
             ->shouldReceive('addUser')
             ->with($json)
@@ -61,7 +61,7 @@ class UserControllerTest extends TestCase
             'password'     => $this->faker->password,
             'user_type_id' => UserTypesEnum::MERCHANT
         ];
-        $fixture = factory(User::class)->create($json);
+        $fixture = factory(User::class)->make($json);
         $this->userServiceMock
             ->shouldReceive('addUser')
             ->with($json)
@@ -78,12 +78,12 @@ class UserControllerTest extends TestCase
     public function shouldReturnInternalServerError()
     {
         $json = [
-            'name'      => $this->faker->name,
-            'cpf'       => $this->faker->cpf,
-            'email'     => $this->faker->email,
-            'cnpj'      => $this->faker->cnpj,
-            'password'  => $this->faker->password,
-            'user_type' => UserTypesEnum::getKey(UserTypesEnum::MERCHANT)
+            'name'         => $this->faker->name,
+            'cpf'          => $this->faker->cpf,
+            'email'        => $this->faker->email,
+            'cnpj'         => $this->faker->cnpj,
+            'password'     => $this->faker->password,
+            'user_type_id' => UserTypesEnum::MERCHANT
         ];
         $this->userServiceMock
             ->shouldReceive('addUser')
