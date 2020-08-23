@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Wallet extends Model
 {
+    const MAX_AMOUNT = 200000.00;
+
     protected $fillable = [
         'user_id', 'amount'
     ];
