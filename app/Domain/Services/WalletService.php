@@ -4,6 +4,7 @@ namespace App\Domain\Services;
 
 use App\Domain\Exceptions\FailCreditUpdateException;
 use App\Domain\Exceptions\MaxWalletAmountExceededException;
+use App\Domain\Exceptions\WalletNotFoundException;
 use App\Domain\Models\Wallet;
 use App\Domain\Repositories\Contracts\WalletRepositoryInterface;
 use Illuminate\Support\Fluent;
@@ -19,15 +20,13 @@ class WalletService
 
     public function addCreditToWallet(array $data): Wallet
     {
+        $data = new Fluent($data);
+
+        $wallet    = $this->findWalletByUserId((int) $data->get('user_id'));
+        $newAmount = $this->validateMaxWalletAmount($wallet->amount, $data->get('amount'));
+
         try {
-            $data = new Fluent($data);
-
-            $wallet    = $this->walletRepository->findByUserId($data->get('user_id'));
-            $newAmount = $this->validateMaxWalletAmount($wallet->amount, $data->get('amount'));
-
             return $this->walletRepository->update($wallet, ['amount' => $newAmount]);
-        } catch (MaxWalletAmountExceededException $exception) {
-            throw new MaxWalletAmountExceededException();
         } catch (\Exception $exception) {
             throw new FailCreditUpdateException();
         }
@@ -42,5 +41,16 @@ class WalletService
         }
 
         return $sum;
+    }
+
+    private function findWalletByUserId(int $userId): Wallet
+    {
+        $wallet = $this->walletRepository->findByUserId($userId);
+
+        if (!$wallet instanceof Wallet) {
+            throw new WalletNotFoundException();
+        }
+
+        return $wallet;
     }
 }
