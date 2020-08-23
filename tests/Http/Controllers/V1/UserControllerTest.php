@@ -8,6 +8,7 @@ use App\Domain\Models\User;
 use App\Domain\Services\UserService;
 use Mockery\LegacyMockInterface;
 use Tests\TestCase;
+use Symfony\Component\HttpFoundation\Response as HttpResponse;
 
 class UserControllerTest extends TestCase
 {
@@ -32,7 +33,7 @@ class UserControllerTest extends TestCase
         $json    = [
             'name'         => $this->faker->name,
             'cpf'          => $this->faker->cpf(false),
-            'email'        => $this->faker->email . 'xD',
+            'email'        => $this->faker->email,
             'cnpj'         => null,
             'password'     => $this->faker->password,
             'user_type_id' => UserTypesEnum::COMMON
@@ -45,7 +46,7 @@ class UserControllerTest extends TestCase
 
         $res = $this->call('POST', '/api/v1/user', $json);
 
-        $res->assertStatus(200);
+        $res->assertStatus(HttpResponse::HTTP_OK);
     }
 
     /**
@@ -69,7 +70,7 @@ class UserControllerTest extends TestCase
 
         $res = $this->call('POST', '/api/v1/user', $json);
 
-        $res->assertStatus(200);
+        $res->assertStatus(HttpResponse::HTTP_OK);
     }
 
     /**
@@ -92,6 +93,25 @@ class UserControllerTest extends TestCase
 
         $res = $this->call('POST', '/api/v1/user', $json);
 
-        $res->assertStatus(500);
+        $res->assertStatus(HttpResponse::HTTP_INTERNAL_SERVER_ERROR);
+    }
+
+    /**
+     * @test
+     */
+    public function shouldReturnUnprocessableEntity()
+    {
+        $json = [
+            'name'         => $this->faker->name,
+            'cpf'          => $this->faker->randomDigit,
+            'email'        => $this->faker->email,
+            'cnpj'         => $this->faker->cnpj,
+            'password'     => $this->faker->password,
+            'user_type_id' => $this->faker->randomElement(UserTypesEnum::toArray())
+        ];
+
+        $res = $this->call('POST', '/api/v1/user', $json);
+
+        $res->assertStatus(HttpResponse::HTTP_UNPROCESSABLE_ENTITY);
     }
 }
