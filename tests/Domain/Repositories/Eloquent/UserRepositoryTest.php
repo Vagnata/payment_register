@@ -61,6 +61,8 @@ class UserRepositoryTest extends TestCase
      */
     public function shouldNotRetrieveAnyUser()
     {
+       factory(User::class)->create();
+
         $user = $this->userRepository->findById($this->faker->randomDigit);
 
         $this->assertNull($user);
