@@ -13,7 +13,7 @@ class PostRequest extends FormRequest
     {
         return [
             'value' => ['required', 'numeric', 'max:200000.00', 'regex:/^-?[0-9]+(?:\.[0-9]{1,2})?$/'],
-            'payer' => ['required', 'integer', 'exists:users,id'],
+            'payer' => ['required', 'integer', 'exists:users,id', 'different:payee'],
             'payee' => ['required', 'integer', 'exists:users,id']
         ];
     }

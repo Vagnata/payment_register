@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property mixed amount
+ * @property mixed id
  */
 class Wallet extends Model
 {
