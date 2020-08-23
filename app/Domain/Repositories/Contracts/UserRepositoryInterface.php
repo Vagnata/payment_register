@@ -6,6 +6,5 @@ use App\Domain\Models\User;
 
 interface UserRepositoryInterface
 {
-    public function save(array $userData): User;
-    public function findById(int $userId);
+    public function findById(int $userId): ?User;
 }

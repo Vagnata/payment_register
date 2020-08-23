@@ -5,16 +5,9 @@ namespace App\Domain\Repositories\Eloquent;
 use App\Domain\Models\User;
 use App\Domain\Repositories\Contracts\UserRepositoryInterface;
 
-class UserRepository implements UserRepositoryInterface
+class UserRepository extends AbstractRepository implements UserRepositoryInterface
 {
-    public function save(array $userData): User
-    {
-        $user = new User();
-        $user->fill($userData);
-        $user->save();
-
-        return $user;
-    }
+    protected $model = User::class;
 
     public function findById(int $userId): ?User
     {
