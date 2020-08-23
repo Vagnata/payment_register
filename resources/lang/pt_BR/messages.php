@@ -1,17 +1,20 @@
 <?php
 
 return [
-    'home' => [
+    'home'        => [
         'welcome' => 'Bem-vindo a API Payment Register'
     ],
-    'user' => [
+    'user'        => [
         'insert' => [
             'successfully' => 'Usuário inserido com sucesso'
         ]
     ],
-    'wallet' => [
+    'wallet'      => [
         'deposit' => [
-            'successfully' => 'Depósito realizado com sucesso.'
+            'successfully' => 'Depósito realizado com sucesso'
         ]
+    ],
+    'transaction' => [
+        'successfully' => 'Transação realizada com sucesso'
     ]
 ];
