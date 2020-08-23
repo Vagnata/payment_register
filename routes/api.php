@@ -18,7 +18,7 @@ Route::group(['namespace' => 'V1', 'prefix' => 'v1'], function()
     });
 
     Route::prefix('transaction')->group(function () {
-        Route::put('/', 'TransactionController@post');
+        Route::post('/', 'TransactionController@post');
     });
 });
 
