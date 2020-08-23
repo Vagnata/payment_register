@@ -5,7 +5,9 @@ namespace Tests\Domain\Services;
 use App\Domain\Enuns\UserTypesEnum;
 use App\Domain\Exceptions\FailUserInsertionException;
 use App\Domain\Models\User;
+use App\Domain\Models\Wallet;
 use App\Domain\Repositories\Eloquent\UserRepository;
+use App\Domain\Repositories\Eloquent\WalletRepository;
 use App\Domain\Services\UserService;
 use Mockery\LegacyMockInterface;
 use Tests\TestCase;
@@ -14,14 +16,19 @@ class UserServiceTest extends TestCase
 {
     /** @var UserService */
     private $userService;
+
     /** @var LegacyMockInterface */
     private $userRepositoryMock;
+
+    /** @var LegacyMockInterface */
+    private $walletRepositoryMock;
 
     protected function setUp(): void
     {
         parent::setUp();
         $this->userRepositoryMock = \Mockery::mock(UserRepository::class);
-        $this->userService        = new UserService($this->userRepositoryMock);
+        $this->walletRepositoryMock = \Mockery::mock(WalletRepository::class);
+        $this->userService        = new UserService($this->userRepositoryMock, $this->walletRepositoryMock);
     }
 
     /**
@@ -30,7 +37,9 @@ class UserServiceTest extends TestCase
     public function shouldAddOneUser()
     {
         $fixture = factory(User::class)->create($this->userFixtureData());
+        $wallet  = factory(Wallet::class)->create(['user_id' => $fixture->id]);
         $this->userRepositoryMock->shouldReceive('save')->andReturn($fixture);
+        $this->walletRepositoryMock->shouldReceive('save')->andReturn($wallet);
 
         $user = $this->userService->addUser($this->userFixtureData());
 

@@ -83,7 +83,7 @@ class UserControllerTest extends TestCase
             'email'        => $this->faker->email,
             'cnpj'         => $this->faker->cnpj,
             'password'     => $this->faker->password,
-            'user_type_id' => UserTypesEnum::MERCHANT
+            'user_type_id' => $this->faker->randomElement(UserTypesEnum::toArray())
         ];
         $this->userServiceMock
             ->shouldReceive('addUser')
