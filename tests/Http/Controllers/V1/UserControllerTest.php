@@ -3,32 +3,49 @@
 namespace Tests\Http\Controllers\V1;
 
 use App\Domain\Enuns\UserTypesEnum;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
+use App\Domain\Exceptions\FailUserInsertionException;
+use App\Domain\Models\User;
+use App\Domain\Services\UserService;
+use Mockery\LegacyMockInterface;
 use Tests\TestCase;
 
 class UserControllerTest extends TestCase
 {
-    use DatabaseMigrations;
+    /** @var LegacyMockInterface */
+    private $userServiceMock;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->userServiceMock = \Mockery::mock(UserService::class);
+
+        app()->bind(UserService::class, function () {
+            return $this->userServiceMock;
+        });
+    }
 
     /**
      * @test
      */
     public function shouldInsertOneCommonUser()
     {
-        $this->assertTrue(true);
-        $json = [
+        $json    = [
             'name'         => $this->faker->name,
-            'cpf'          => $this->faker->cpf,
+            'cpf'          => $this->faker->cpf(false),
             'email'        => $this->faker->email,
             'cnpj'         => null,
             'password'     => $this->faker->password,
             'user_type_id' => UserTypesEnum::COMMON
         ];
+        $fixture = factory(User::class)->create($json);
+        $this->userServiceMock
+            ->shouldReceive('addUser')
+            ->with($json)
+            ->andReturn($fixture);
 
-        $res = $this->call('POST ', '/v1/user', $json);
+        $res = $this->call('POST', '/api/v1/user', $json);
 
-        $res->assertStatus(200)
-            ->assertJson(['message' => 'Usuário inserido com sucesso!']);
+        $res->assertStatus(200);
     }
 
     /**
@@ -36,19 +53,45 @@ class UserControllerTest extends TestCase
      */
     public function shouldInsertOneMerchantUser()
     {
-        $this->assertTrue(true);
-        $json = [
+        $json    = [
             'name'         => $this->faker->name,
-            'cpf'          => $this->faker->cpf,
+            'cpf'          => $this->faker->cpf(false),
             'email'        => $this->faker->email,
-            'cnpj'         => $this->faker->cnpj,
+            'cnpj'         => null,
             'password'     => $this->faker->password,
             'user_type_id' => UserTypesEnum::MERCHANT
         ];
+        $fixture = factory(User::class)->create($json);
+        $this->userServiceMock
+            ->shouldReceive('addUser')
+            ->with($json)
+            ->andReturn($fixture);
 
-        $res = $this->call('POST ', '/v1/user', $json);
+        $res = $this->call('POST', '/api/v1/user', $json);
 
-        $res->assertStatus(200)
-            ->assertJson(['message' => 'Usuário inserido com sucesso!']);
+        $res->assertStatus(200);
+    }
+
+    /**
+     * @test
+     */
+    public function shouldReturnInternalServerError()
+    {
+        $json = [
+            'name'      => $this->faker->name,
+            'cpf'       => $this->faker->cpf,
+            'email'     => $this->faker->email,
+            'cnpj'      => $this->faker->cnpj,
+            'password'  => $this->faker->password,
+            'user_type' => UserTypesEnum::getKey(UserTypesEnum::MERCHANT)
+        ];
+        $this->userServiceMock
+            ->shouldReceive('addUser')
+            ->with($json)
+            ->andThrow(FailUserInsertionException::class);
+
+        $res = $this->call('POST', '/api/v1/user', $json);
+
+        $res->assertStatus(500);
     }
 }

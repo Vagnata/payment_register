@@ -25,14 +25,15 @@ class UserService
             $userData = [
                 'name'         => $data->get('name'),
                 'email'        => $data->get('email'),
-                'cpf'          => Utils::unmask($data->get('cpf')),
-                'cnpj'         => Utils::unmask($data->get('cnpj')),
+                'cpf'          => !is_null($data->get('cpf')) ? Utils::unmask($data->get('cpf')) : null,
+                'cnpj'         => !is_null($data->get('cnpj')) ? Utils::unmask($data->get('cnpj')) : null,
                 'password'     => sha1($data->get('password')),
                 'user_type_id' => $data->get('user_type_id'),
             ];
 
             return $this->userRepository->save($userData);
         } catch (\Exception $exception) {
+            dd($exception->getMessage());
             throw new FailUserInsertionException();
         }
     }
