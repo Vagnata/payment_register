@@ -29,5 +29,11 @@ return [
         'secret' => env('AWS_SECRET_ACCESS_KEY'),
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
-
+    'payment_integration' => [
+        'base_uri' => env('URL_PAYMENT_INTEGRATION'),
+        'timeout'  => 60,
+        'headers'  => [
+            'Content-Type' => 'application/json'
+        ]
+    ],
 ];
