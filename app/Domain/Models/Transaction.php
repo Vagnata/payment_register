@@ -4,6 +4,9 @@ namespace App\Domain\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @property mixed id
+ */
 class Transaction extends Model
 {
     protected $fillable = [
