@@ -6,6 +6,7 @@ use App\Domain\Enuns\NotificationStatusEnum;
 use App\Domain\Models\Notification;
 use App\Domain\Models\Transaction;
 use App\Domain\Repositories\Contracts\NotificationRepositoryInterface;
+use Illuminate\Database\Eloquent\Collection;
 
 class NotificationService
 {
@@ -28,5 +29,10 @@ class NotificationService
         ];
 
         return $this->notificationRepository->save($data);
+    }
+
+    public function findAwaitingNotifications(): Collection
+    {
+        return $this->notificationRepository->findAwaitingNotifications();
     }
 }
