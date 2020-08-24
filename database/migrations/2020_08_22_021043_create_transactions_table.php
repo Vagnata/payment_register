@@ -15,6 +15,8 @@ class CreateTransactionsTable extends Migration
             $table->decimal('amount');
             $table->unsignedBigInteger('transaction_status_id');
             $table->timestamps();
+            $table->foreign('payer_wallet_id')->references('id')->on('wallets');
+            $table->foreign('payee_wallet_id')->references('id')->on('wallets');
         });
     }
 
