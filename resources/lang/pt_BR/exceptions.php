@@ -23,6 +23,8 @@ return [
     ],
     'integrations' => [
         'authorization_transactions_unavailable' => 'Serviço de autorização de transações está indisponível',
-        'transaction_denied'                     => 'Transação negada'
+        'notification_transactions_unavailable'  => 'Serviço de notificação de transações está indisponível',
+        'transaction_denied'                     => 'Transação negada',
+        'notification_not_sent'                  => 'Notificação não enviada'
     ]
 ];
