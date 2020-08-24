@@ -16,5 +16,8 @@ return [
     ],
     'transaction' => [
         'successfully' => 'Transação realizada com sucesso'
+    ],
+    'notification' => [
+        'transaction_successfully' => 'Transação realizada com sucesso'
     ]
 ];
