@@ -9,8 +9,7 @@ use Illuminate\Support\Facades\Log;
 
 class PaymentIntegrationService
 {
-    const AUTHORIZATION_TRANSACTION = '8fafdd68-a090-496f-8c9a-3442cf30dae6';
-    const MERCHANT_NOTIFICATION     = 'b19f7b9f-9cbf-4fc6-ad22-dc30601aec04';
+    const AUTHORIZATION_TRANSACTION_URI = '8fafdd68-a090-496f-8c9a-3442cf30dae6';
 
     private $client;
 
@@ -22,7 +21,7 @@ class PaymentIntegrationService
     public function authorizeTransaction(): bool
     {
         try {
-            $response = $this->client->request('GET', self::AUTHORIZATION_TRANSACTION);
+            $response = $this->client->request('GET', self::AUTHORIZATION_TRANSACTION_URI);
         } catch (\Exception $exception) {
             Log::error('INTEGRATION ERROR: ' . $exception->getMessage());
             throw new AuthorizationIntegrationServiceException();
