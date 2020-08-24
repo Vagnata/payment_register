@@ -23,7 +23,7 @@ class PaymentIntegrationService
         try {
             $response = $this->client->request('GET', self::AUTHORIZATION_TRANSACTION_URI);
         } catch (\Exception $exception) {
-            Log::error('INTEGRATION ERROR: ' . $exception->getMessage());
+            Log::error('AUTHORIZATION INTEGRATION ERROR: ' . $exception->getMessage());
             throw new AuthorizationIntegrationServiceException();
         }
 
