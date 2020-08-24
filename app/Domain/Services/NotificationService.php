@@ -35,4 +35,9 @@ class NotificationService
     {
         return $this->notificationRepository->findAwaitingNotifications();
     }
+
+    public function updateNotification(Notification $notification, array $data): Notification
+    {
+        return $this->notificationRepository->update($notification, $data);
+    }
 }

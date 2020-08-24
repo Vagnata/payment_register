@@ -62,4 +62,23 @@ class NotificationServiceTest extends TestCase
         $this->assertInstanceOf(Collection::class, $collection);
         $this->assertCount(2, $collection);
     }
+
+    /**
+     * @test
+     */
+    public function shouldUpdateOneNotification()
+    {
+        $fixture = factory(Notification::class)
+            ->create(['notification_status' => NotificationStatusEnum::SENT]);
+        $data    = ['notification_status' => NotificationStatusEnum::SENT];
+        $this->notificationRepositoryMock
+            ->shouldReceive('update')
+            ->withAnyArgs()
+            ->andReturn($fixture);
+
+        $notification = $this->notificationService->updateNotification($fixture, $data);
+
+        $this->assertInstanceOf(Notification::class, $notification);
+        $this->assertEquals(NotificationStatusEnum::SENT, $notification->notification_status);
+    }
 }
