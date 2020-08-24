@@ -37,5 +37,8 @@ class NotificationRepositoryTest extends TestCase
 
         $this->assertInstanceOf(Collection::class, $collection);
         $this->assertCount(3, $collection);
+        $collection->each(function (Notification $notification) {
+            $this->assertEquals(NotificationStatusEnum::AWAITING, $notification->notification_status);
+        });
     }
 }
