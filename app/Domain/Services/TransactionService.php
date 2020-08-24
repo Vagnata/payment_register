@@ -2,7 +2,7 @@
 
 namespace App\Domain\Services;
 
-use App\Components\Integrations\PaymentIntegrationService;
+use App\Component\Integrations\PaymentIntegrationService;
 use App\Domain\Enuns\TransactionStatusEnum;
 use App\Domain\Enuns\UserTypesEnum;
 use App\Domain\Exceptions\InvalidUserTypeException;

@@ -3,7 +3,7 @@
 namespace Tests\Components\Integrations;
 
 
-use App\Components\Integrations\PaymentIntegrationService;
+use App\Component\Integrations\PaymentIntegrationService;
 use App\Domain\Exceptions\AuthorizationIntegrationServiceException;
 use App\Domain\Exceptions\TransactionDeniedException;
 use GuzzleHttp\Client;
