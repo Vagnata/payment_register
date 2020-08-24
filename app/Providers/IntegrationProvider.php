@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Domain\Integrations\PaymentIntegrationService;
+use App\Components\Integrations\PaymentIntegrationService;
 use GuzzleHttp\Client;
 use Illuminate\Support\ServiceProvider;
 

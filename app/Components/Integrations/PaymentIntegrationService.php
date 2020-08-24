@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domain\Integrations;
+namespace App\Components\Integrations;
 
 use App\Domain\Exceptions\AuthorizationIntegrationServiceException;
 use App\Domain\Exceptions\TransactionDeniedException;

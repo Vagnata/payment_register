@@ -1,11 +1,11 @@
 <?php
 
-namespace Tests\Domain\Integrations;
+namespace Tests\Components\Integrations;
 
 
+use App\Components\Integrations\PaymentIntegrationService;
 use App\Domain\Exceptions\AuthorizationIntegrationServiceException;
 use App\Domain\Exceptions\TransactionDeniedException;
-use App\Domain\Integrations\PaymentIntegrationService;
 use GuzzleHttp\Client;
 use GuzzleHttp\Handler\MockHandler;
 use Tests\TestCase;
