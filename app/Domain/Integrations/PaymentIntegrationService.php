@@ -28,12 +28,17 @@ class PaymentIntegrationService
             throw new AuthorizationIntegrationServiceException();
         }
 
+        return $this->validateAuthorizationResponse($response);
+    }
+
+    private function validateAuthorizationResponse($response): bool
+    {
         $body = json_decode($response->getBody()->__toString(), true);
 
-        if (array_key_exists('message', $body) && $body['message'] == 'Autorizado') {
-            return true;
+        if (!array_key_exists('message', $body) || $body['message'] != 'Autorizado') {
+            throw new TransactionDeniedException();
         }
 
-        throw new TransactionDeniedException();
+        return true;
     }
 }
