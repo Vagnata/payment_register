@@ -18,6 +18,7 @@ return [
         'successfully' => 'Transação realizada com sucesso'
     ],
     'notification' => [
-        'transaction_successfully' => 'Transação no valor de :value R$ realizada com sucesso'
+        'transaction_successfully' => 'Transação no valor de :value R$ realizada com sucesso',
+        'update_successfully'       => 'Notificações atualizadas com sucesso'
     ]
 ];
