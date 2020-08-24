@@ -5,11 +5,12 @@ namespace App\Domain\Integrations;
 use App\Domain\Exceptions\AuthorizationIntegrationServiceException;
 use App\Domain\Exceptions\TransactionDeniedException;
 use GuzzleHttp\Client;
+use Illuminate\Support\Facades\Log;
 
 class PaymentIntegrationService
 {
-    const AUTHORIZATION_TRANSACTION = '/8fafdd68-a090-496f-8c9a-3442cf30dae6';
-    const MERCHANT_NOTIFICATION     = '/b19f7b9f-9cbf-4fc6-ad22-dc30601aec04';
+    const AUTHORIZATION_TRANSACTION = '8fafdd68-a090-496f-8c9a-3442cf30dae6';
+    const MERCHANT_NOTIFICATION     = 'b19f7b9f-9cbf-4fc6-ad22-dc30601aec04';
 
     private $client;
 
@@ -23,6 +24,7 @@ class PaymentIntegrationService
         try {
             $response = $this->client->request('GET', self::AUTHORIZATION_TRANSACTION);
         } catch (\Exception $exception) {
+            Log::error('INTEGRATION ERROR: ' . $exception->getMessage());
             throw new AuthorizationIntegrationServiceException();
         }
 
